@@ -28,7 +28,7 @@ kb_1.add(button3, button4)
 start = ReplyKeyboardMarkup(
     keyboard=[[
         KeyboardButton(text='Рассчитать'),
-        KeyboardButton(text='Инофрмация')
+        KeyboardButton(text='Информация')
         ],
     ],     resize_keyboard=True
 )
@@ -40,7 +40,6 @@ async def start(message):
 @dp.message_handler(text='Рассчитать')
 async def message_handler(message):
     await message.answer("Выберите опцию:", reply_markup = kb_1)
-    await call.answer()
 
 @dp.callback_query_handler(text="formulas")
 async def callback_query_handler(call):
@@ -55,6 +54,7 @@ async def callback_query_handler(call):
 async def set_age(call):
     await call.message.answer("Введите свой возраст(полных лет):")
     await UserState.age.set()
+    await call.answer()
 
 @dp.message_handler(text='Информация')
 async def info(message):
@@ -89,6 +89,7 @@ async def send_calories(message, state):
     await message.answer(f'Норма (муж.): {calories_man} ккал')
     await message.answer(f'Норма (жен.): {calories_wom} ккал')
     await state.finish()
+
 
 @dp.message_handler()
 async def all_messages(message):
